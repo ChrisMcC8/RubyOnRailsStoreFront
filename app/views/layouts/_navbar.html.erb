@@ -15,7 +15,7 @@
 
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
-      <a class="navbar-item" href="home">
+      <a class="navbar-item" href="../home">
         Home
       </a>
 
@@ -23,20 +23,27 @@
         Products
       </a>
 
-      <a class="navbar-item" href="about">
+      <a class="navbar-item" href="../about">
         About
       </a>
 
-      <a class="navbar-item" href="contact">
+      <a class="navbar-item" href="../contact">
         Contact
       </a>
     </div>
 
     <div class="navbar-end">
       <div class="navbar-item">
-        <a class="navbar-item" >
-            Login / Sign Up
-        </a>
+        <p class="navbar-item">
+            <% if user_signed_in? %>
+                Logged in as: &nbsp;<strong> <%= current_user.email %></strong>
+                <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-item' %> |
+                <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-item'  %>
+            <% else %>
+                <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-item'  %> |
+                <%= link_to "Login", new_user_session_path, :class => 'navbar-item'  %>
+            <% end %>
+        </p>
         
         <div class="buttons">
           <a class="button is-primary">

@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
+  devise_for :users do
+    get '/users/sign_out' => 'devise/sessions#destroy'
+  end
   get 'contact/index'
-  get 'about/index'
+  get '/about', to: "about#index"
   get 'home/index'
   get 'product/index'
   resources :products, :home, :about, :contact
