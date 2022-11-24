@@ -30,6 +30,14 @@
       <a class="navbar-item" href="../contact">
         Contact
       </a>
+
+      <% if current_user %>
+        <% if current_user.id === 1 %>
+            <a class="navbar-item" href="../dashboard">
+                Dashboard
+            </a>
+        <% end %>
+      <% end %>
     </div>
 
     <div class="navbar-end">
