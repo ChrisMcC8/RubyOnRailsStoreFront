@@ -1,4 +1,27 @@
-<h1>Dashboard#index</h1>
-<p>Find me in app/views/dashboard/index.html.erb</p>
+<div class="title">Admin Dashboard</div>
 
+<div class="subtitle">Add, Edit, and Delete products from this dashboard.</div>
+
+
+<%= link_to "Add new product", new_product_path%>
+
+<br>
+<br>
+
+<div id="products" class="container">
+  <% @products.each do |product| %>
+    
+    <div class="card">
+      <div class="card-content">
+        <%= link_to product.manufacturer + " - " + product.name , product %>
+        <br>
+        CAD <%= number_to_currency(product.price) %>
+        <br>
+        <%= link_to "Edit Product", edit_product_path(product)%>
+        <br>
+        <%= link_to 'Delete Product', product, method: :delete, data: { confirm: 'Are you sure?' } %>
+      </div>
+    </div>
+  <% end %>
+</div>
 
