@@ -6,9 +6,9 @@ class Product < ApplicationRecord
         if search
             product_type = Product.find_by(name: search)
             if product_type
-                self.where(product_id: product_type)
+                self.where(product_id: product_type, role: search[:":role"][","])
             else 
-                @products = Product.all    
+                @products = Product.all
             end
         else 
             @products = Product.all
