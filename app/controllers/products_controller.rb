@@ -1,9 +1,20 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: %i[ show edit update destroy ]
 
+
   # GET /products or /products.json
   def index
-    @products = Product.all
+    @current_user = current_user
+    @categories = Category.all
+
+    if params[:search]
+      search_term = params[:search].downcase.gsub(/\s+/, "")
+      @products = Product.all.select{ |product|
+        product.name.downcase.include?(search_term)
+      }
+    else  
+      @products = Product.page(params[:page])
+    end
   end
 
   # GET /products/1 or /products/1.json
@@ -17,6 +28,10 @@ class ProductsController < ApplicationController
 
   # GET /products/1/edit
   def edit
+  end
+
+  def product_params
+    params.require(:product).permit(:name, categories.name, :manufacturer, :search)
   end
 
   # POST /products or /products.json
