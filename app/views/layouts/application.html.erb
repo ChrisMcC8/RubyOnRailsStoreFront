@@ -16,6 +16,12 @@
   <body>
     <%= render 'layouts/navbar' %>
 
+    <div id="welcome_user">
+      <% if user_signed_in? %>
+        Welcome: &nbsp;<strong> <%= current_user.email %></strong>
+      <% end %>
+    </div>
+
     <% if notice %>
       <p class="alert alert-success"><%= notice %></p>
     <% end%>  
@@ -24,8 +30,9 @@
       <p class="alert alert-danger"><%= alert %></p>
     <% end%> 
 
-    <%= yield %>
+    <div class="display-content">
+      <%= yield %>
+    </div>
 
-    
   </body>
 </html>
