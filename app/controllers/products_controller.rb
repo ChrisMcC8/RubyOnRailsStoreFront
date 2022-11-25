@@ -12,6 +12,7 @@ class ProductsController < ApplicationController
       @products = Product.all.select{ |product|
         product.name.downcase.include?(search_term)
       }
+      @products = Kaminari.paginate_array(@products).page(params[:page]).per(10)
     else  
       @products = Product.page(params[:page])
     end

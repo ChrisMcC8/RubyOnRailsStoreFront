@@ -11,12 +11,16 @@
 
 
   <div class="box">
-    <select>
-      <% @categories.each do |category| %>
-        <option><%= category.name %></option>
-      <% end%>
-    </select>
     <%= form_tag(products_path, method: :get) do %>
+      <select name=product[:role], class="form-control">
+        <option value="None">None</option>
+        <option value="Stoves">Stoves</option>
+        <option value="Tents">Tents</option>
+        <option value="Sleeping">Sleeping</option>
+        <option value="Cookware">Cookware</option>
+        <option value="Clothing">Clothing</option>
+        <option value="TrekkingPoles">Trekking Poles</option>
+      </select>
       <%= text_field_tag(:search, params[:search]) %>
       <%= submit_tag ("Search") %>
     <% end %>
