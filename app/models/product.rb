@@ -1,6 +1,6 @@
 class Product < ApplicationRecord
 
-    # belongs_to :category
+    belongs_to :category
 
     def self.search(search)
         if search
