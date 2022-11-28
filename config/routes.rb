@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get 'home/index'
   get 'product/index'
   get 'categories/index'
+  get '/categories/:id', to: 'categories#show', as: 'category'
   resources :products, :home, :about, :contact, :dashboard, :categories
   root "home#index"
 
