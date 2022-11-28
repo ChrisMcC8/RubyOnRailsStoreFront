@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   get '/about', to: "about#index"
   get 'home/index'
   get 'product/index'
-  resources :products, :home, :about, :contact, :dashboard
+  get 'categories/index'
+  get '/categories/:id', to: 'categories#show', as: 'category'
+  resources :products, :home, :about, :contact, :dashboard, :categories
   root "home#index"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
