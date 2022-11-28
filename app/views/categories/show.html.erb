@@ -18,20 +18,22 @@
             </div>
             <% end %>
         </div>
+    <% else %>    
+        <div id="products" class="container">
+            <% Product.where(categoryId: (@category.id - 1)).each do |product| %>
+            
+            <div class="card">
+                <div class="card-content">
+                <%= link_to product.manufacturer + " - " + product.name , product %>
+                <br>
+                CAD <%= number_to_currency(product.price) %>
+                </div>
+            </div>
+            <% end %>
+        </div>
     <% end %>
 
-    <div id="products" class="container">
-        <% Product.find(params[@category.id]) do |product| %>
-        
-        <div class="card">
-            <div class="card-content">
-            <%= link_to product.manufacturer + " - " + product.name , product %>
-            <br>
-            CAD <%= number_to_currency(product.price) %>
-            </div>
-        </div>
-        <% end %>
-    </div>
+    
     
     
 
