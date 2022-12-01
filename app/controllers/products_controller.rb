@@ -5,13 +5,16 @@ class ProductsController < ApplicationController
   # GET /products or /products.json
   def index
     @current_user = current_user
-    @categories = Category.all
+    @prod_categories = ProdCategory.all
 
     if params[:search]
       search_term = params[:search].downcase.gsub(/\s+/, "")
-      @products = Product.all.select{ |product|
-        product.name.downcase.include?(search_term)
-      }
+      category = params[:category]
+      @products = Product.where("name LIKE ? AND categoryId = ?", search_term, category)
+      # debugger.log(@products)
+      # Product.all.select{ |product|
+      #   product.name.downcase.include?(search_term) 
+      # }
       @products = Kaminari.paginate_array(@products).page(params[:page]).per(10)
     else  
       @products = Product.page(params[:page])
@@ -32,7 +35,7 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:name, categories.name, :manufacturer, :search)
+    params.require(:product).permit(:name, categories.name, :manufacturer, :search, :category)
   end
 
   # POST /products or /products.json
