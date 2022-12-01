@@ -12,23 +12,21 @@
 
   <div class="box">
     <%= form_tag(products_path, method: :get) do %>
-      <select name=product[:role], class="form-control">
-        <option value="None">None</option>
-        <option value="Stoves">Stoves</option>
-        <option value="Tents">Tents</option>
-        <option value="Sleeping">Sleeping</option>
-        <option value="Cookware">Cookware</option>
-        <option value="Clothing">Clothing</option>
-        <option value="TrekkingPoles">Trekking Poles</option>
+      <select name="category", class="form-control">
+        <% @prod_categories.each do |category| %>
+          <option value="<%= category.id %>"><%= category.name %></option>
+        <% end %>
       </select>
       <%= text_field_tag(:search, params[:search]) %>
+      
       <%= submit_tag ("Search") %>
     <% end %>
   </div>
 
-
+  <br>
 
   <div id="products" class="container">
+    
     <% @products.each do |product| %>
       
       <div class="card">
@@ -41,8 +39,9 @@
     <% end %>
   </div>
 
-<div id="paginate">
-  <%= paginate @products %>
-</div>
+
+  <div id="paginate">
+    <%= paginate @products %>
+  </div> 
 
 </div>
