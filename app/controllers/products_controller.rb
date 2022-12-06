@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: %i[ show edit update destroy ]
-
+  before_action :initialize_session
 
   # GET /products or /products.json
   def index
@@ -9,16 +9,24 @@ class ProductsController < ApplicationController
 
     if params[:search]
       search_term = params[:search].downcase.gsub(/\s+/, "")
-      category = params[:category]
-      @products = Product.where("name LIKE ? AND categoryId = ?", search_term, category)
-      # debugger.log(@products)
-      # Product.all.select{ |product|
-      #   product.name.downcase.include?(search_term) 
-      # }
+      categoryId = params[:categoryId]
+      @products = Product.where("name LIKE ? AND categoryId = ?", search_term, categoryId)
       @products = Kaminari.paginate_array(@products).page(params[:page]).per(10)
     else  
       @products = Product.page(params[:page])
     end
+  end
+
+  def add_to_cart
+    id = params[:id].to_i
+    session[:cart] << id unless session[:cart].include?(id)
+    redirect_to root_path
+  end
+
+  def remove_from_cart
+    id = params[:id].to_i
+    session[:cart].delete(id)
+    redirect_to root_path
   end
 
   # GET /products/1 or /products/1.json
@@ -35,7 +43,7 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:name, categories.name, :manufacturer, :search, :category)
+    params.require(:product).permit(:name, categories.name, :manufacturer, :search, :categoryId)
   end
 
   # POST /products or /products.json
@@ -86,4 +94,6 @@ class ProductsController < ApplicationController
     def product_params
       params.require(:product).permit(:id, :name, :manufacturer, :price, :stock, :description, :weight, :categoryId)
     end
+
+    
 end

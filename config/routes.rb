@@ -19,16 +19,8 @@ Rails.application.routes.draw do
   get 'carts/:id' => "carts#show", as: "cart"
   delete 'carts/:id' => "carts#destroy"
 
-  post 'line_items/:id/add' => "line_items#add_quantity", as: "line_item_add"
-  post 'line_items/:id/reduce' => "line_items#reduce_quantity", as: "line_item_reduce"
-  post 'line_items' => "line_items#create"
-  get 'line_items/:id' => "line_items#show", as: "line_item"
-  delete 'line_items/:id' => "line_items#destroy"
-
-  resource :cart, only: [:show] do
-    put 'add/:product_id', to: 'carts#add', as: :add_to
-    put 'remove/:product_id', to: 'carts#remove', as: :remove_from
-  end
+  post 'products/add_to_cart/:id', to: 'products#add_to_cart', as: 'add_to_cart'
+  delete 'products/remove_from_cart/:id', to: 'products#remove_from_cart', as: 'remove_from_cart'
 
 
   resources :products, :home, :about, :contact, :dashboard, :categories, :orders, :carts
