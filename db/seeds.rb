@@ -137,3 +137,40 @@ Product.create!([{
 ])
 
 p "Created #{Product.count} products!"
+
+ProdCategory.destroy_all
+ProdCategory.create!([{
+    name: "None",
+    categoryId: 1
+},
+{
+    name: "Stoves",
+    categoryId: 2
+},
+{
+    name: "Tents",
+    categoryId: 3
+},
+{
+    name: "Sleeping",
+    categoryId: 4
+},
+{
+    name: "Cookware",
+    categoryId: 5
+},
+{
+    name: "Clothing",
+    categoryId: 6
+},
+{
+    name: "TrekkingPoles",
+    categoryId: 7
+},
+{
+    name: "Shoes",
+    categoryId: 8
+}
+])
+
+p "Created #{ProdCategory.count} categories!"
