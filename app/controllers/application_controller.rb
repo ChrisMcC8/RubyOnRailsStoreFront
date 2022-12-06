@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
     before_action :current_cart
+    before_action :initialize_session
+    before_action :load_cart
 
     private
         def current_cart
@@ -16,5 +18,13 @@ class ApplicationController < ActionController::Base
                 @current_cart = Cart.create
                 session[:cart_id] = @current_cart.id
             end
+        end
+
+        def initialize_session
+            session[:cart] ||= []
+        end
+
+        def load_cart
+            @cart = Product.find(session[:cart])
         end
 end
