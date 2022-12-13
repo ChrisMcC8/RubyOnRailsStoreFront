@@ -38,3 +38,12 @@
 	position: absolute;
 	right: 45%;
 }
+
+#alert-success { 
+	padding: 20px;
+}
+
+#success_message { 
+	color: green;
+	padding: 25px;
+}

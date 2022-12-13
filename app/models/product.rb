@@ -1,5 +1,9 @@
 class Product < ApplicationRecord
-
+    before_destroy :not_referenced_by_any_line_item
+    mount_uploader :image, ImageUploader
+    serialize :image, JSON
+    has_many :cart_line_items
+    validates :name, :manufacturer, :price, :stock, :description, :weight, :categoryId, presence: true
     # belongs_to :category
 
     def self.search(search)
@@ -14,4 +18,12 @@ class Product < ApplicationRecord
             @products = Product.all
         end
     end
+
+    private
+        def not_referenced_by_any_line_item
+            unless cart_line_items.empty?
+                errors.add(:base, "Line items present")
+                throw :abort
+            end
+        end
 end

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :cart_line_items
+  resources :shopping_carts
   resources :user_profiles
   get 'orders/index'
   get 'orders/show'
@@ -12,6 +14,7 @@ Rails.application.routes.draw do
   get 'contact/index'
   get '/about', to: "about#index"
   get 'home/index'
+  get '/about/edit'
   get 'product/index'
   get 'categories/index'
   get '/categories/:id', to: 'categories#show', as: 'category'

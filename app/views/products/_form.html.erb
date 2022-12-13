@@ -1,15 +1,18 @@
-<%= form_with(model: product) do |form| %>
-  <% if product.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(product.errors.count, "error") %> prohibited this product from being saved:</h2>
+<%= simple_form_for @product, html: { multipart: true } do |form| %>
+      <%= form.error_notification %>
 
-      <ul>
-        <% product.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%# <%= form_with(model: product) do |form| %>
+    <%# <% if product.errors.any? %> 
+      <%# <div style="color: red"> %>
+        <%# <h2><%= pluralize(product.errors.count, "error") prohibited this product from being saved:</h2> %> 
+
+        <%# <ul> %>
+          <%# <% product.errors.each do |error| %> 
+            <%# <li><%= error.full_message</li> %>
+          <%# <% end %>
+        <%# </ul> %>
+      <%# </div> %>
+    <%# <% end %> 
 
   <div>
     <%= form.label :id, style: "display: block" %>
@@ -49,6 +52,20 @@
   <div>
     <%= form.label :categoryId, style: "display: block" %>
     <%= form.number_field :categoryId %>
+  </div>
+
+  <div class="control">
+    <label class="label">Add images</label>
+      <div class="file">
+      <label class="file-label">
+        <%= form.input :image, as: :file, input_html: { class:"file-input product-image" }, label: false, wrapper: false %>
+          <span class="file-cta">
+            <span class="file-icon"><i class="fa fa-upload"></i></span>
+            <span class="file-label">Choose a file…</span>
+          </span>
+      </label>
+      </div>
+    </div>
   </div>
 
   <div>

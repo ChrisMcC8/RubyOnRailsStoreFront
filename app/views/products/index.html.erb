@@ -1,7 +1,7 @@
-<head>
+<%# <head>
    <%= javascript_importmap_tags %>
-    <%= javascript_include_tag "application", "data-turbolinks-track" => true  %>
-</head>
+    <%# <%= javascript_include_tag "application", "data-turbolinks-track" => true  %> 
+<%# </head> %> 
 
 <%= debug session[:cart] %>
 
@@ -14,7 +14,7 @@
 
   <div class="box">
     <%= form_tag(products_path, method: :get) do %>
-      <select name="category", class="form-control">
+      <select name="category" class="form-control">
         <% @prod_categories.each do |category| %>
           <option value="<%= category.id %>"><%= category.name %></option>
         <% end %>
@@ -33,6 +33,9 @@
       
       <div class="card">
         <div class="card-content">
+          <% if product.image.url %>
+            <%= image_tag product.image.url, alt:product.image.url %>
+          <% end %>
           <%= link_to product.manufacturer + " - " + product.name , product %>
           <br>
           CAD <%= number_to_currency(product.price) %>

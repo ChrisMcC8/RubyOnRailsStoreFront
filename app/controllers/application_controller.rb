@@ -1,7 +1,9 @@
 class ApplicationController < ActionController::Base
+    include CurrentCart
     before_action :current_cart
     before_action :initialize_session
     before_action :load_cart
+    before_action :set_cart
 
     private
         def current_cart
