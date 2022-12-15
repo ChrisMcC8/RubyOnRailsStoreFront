@@ -12,7 +12,13 @@
  *
  *= require_tree .
  *= require_self
+ *= require social-share-button
  */
+ 
+
+ body{
+	padding: 25px;
+ }
 
  #welcome_user {
    padding-left: 20px;
@@ -37,4 +43,13 @@
 	padding: 20px;
 	position: absolute;
 	right: 45%;
+}
+
+#alert-success { 
+	padding: 20px;
+}
+
+#success_message { 
+	background-color: lightgreen;
+	padding: 25px;
 }

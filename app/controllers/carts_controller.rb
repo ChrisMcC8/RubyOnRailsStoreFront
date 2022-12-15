@@ -1,16 +1,17 @@
+# frozen_string_literal: true
+
+# Controller for the cart pages
 class CartsController < ApplicationController
   before_action :authenticate_user!
 
-  def show
-    
-  end
+  def show; end
 
-  def add
-    
-  end
+  def add; end
 
-  def remove
-    
+  def remove; end
+
+  def update_quantity
+    @line_item.update_attribute(:quantity)
   end
 
   private

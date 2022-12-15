@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
+# Controller that contains the methods for the product categories
+# - Use this instead of regular categories
 class ProdCategoriesController < ApplicationController
-  before_action :set_prod_category, only: %i[ show edit update destroy ]
+  before_action :set_prod_category, only: %i[show edit update destroy]
 
   # GET /prod_categories or /prod_categories.json
   def index
@@ -8,8 +12,7 @@ class ProdCategoriesController < ApplicationController
   end
 
   # GET /prod_categories/1 or /prod_categories/1.json
-  def show
-  end
+  def show; end
 
   # GET /prod_categories/new
   def new
@@ -17,8 +20,7 @@ class ProdCategoriesController < ApplicationController
   end
 
   # GET /prod_categories/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /prod_categories or /prod_categories.json
   def create
@@ -26,7 +28,10 @@ class ProdCategoriesController < ApplicationController
 
     respond_to do |format|
       if @prod_category.save
-        format.html { redirect_to prod_category_url(@prod_category), notice: "Prod category was successfully created." }
+        format.html do
+          redirect_to prod_category_url(@prod_category),
+                      notice: "Prod category was successfully created."
+        end
         format.json { render :show, status: :created, location: @prod_category }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,7 +44,10 @@ class ProdCategoriesController < ApplicationController
   def update
     respond_to do |format|
       if @prod_category.update(prod_category_params)
-        format.html { redirect_to prod_category_url(@prod_category), notice: "Prod category was successfully updated." }
+        format.html do
+          redirect_to prod_category_url(@prod_category),
+                      notice: "Prod category was successfully updated."
+        end
         format.json { render :show, status: :ok, location: @prod_category }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -53,19 +61,22 @@ class ProdCategoriesController < ApplicationController
     @prod_category.destroy
 
     respond_to do |format|
-      format.html { redirect_to prod_categories_url, notice: "Prod category was successfully destroyed." }
+      format.html do
+        redirect_to prod_categories_url, notice: "Prod category was successfully destroyed."
+      end
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_prod_category
-      @prod_category = ProdCategory.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def prod_category_params
-      params.require(:prod_category).permit(:name, :categoryId)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_prod_category
+    @prod_category = ProdCategory.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def prod_category_params
+    params.require(:prod_category).permit(:name, :categoryId)
+  end
 end
