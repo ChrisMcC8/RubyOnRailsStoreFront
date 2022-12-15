@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
+# Controller for the shopping cart and its methods. Use this instead of cart.
 class ShoppingCartsController < ApplicationController
-  before_action :set_shopping_cart, only: %i[ show edit update destroy ]
+  before_action :set_shopping_cart, only: %i[show edit update destroy]
 
   # GET /shopping_carts or /shopping_carts.json
   def index
@@ -7,8 +10,7 @@ class ShoppingCartsController < ApplicationController
   end
 
   # GET /shopping_carts/1 or /shopping_carts/1.json
-  def show
-  end
+  def show; end
 
   # GET /shopping_carts/new
   def new
@@ -16,8 +18,7 @@ class ShoppingCartsController < ApplicationController
   end
 
   # GET /shopping_carts/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /shopping_carts or /shopping_carts.json
   def create
@@ -25,7 +26,10 @@ class ShoppingCartsController < ApplicationController
 
     respond_to do |format|
       if @shopping_cart.save
-        format.html { redirect_to shopping_cart_url(@shopping_cart), notice: "Shopping cart was successfully created." }
+        format.html do
+          redirect_to shopping_cart_url(@shopping_cart),
+                      notice: "Shopping cart was successfully created."
+        end
         format.json { render :show, status: :created, location: @shopping_cart }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +42,10 @@ class ShoppingCartsController < ApplicationController
   def update
     respond_to do |format|
       if @shopping_cart.update(shopping_cart_params)
-        format.html { redirect_to shopping_cart_url(@shopping_cart), notice: "Shopping cart was successfully updated." }
+        format.html do
+          redirect_to shopping_cart_url(@shopping_cart),
+                      notice: "Shopping cart was successfully updated."
+        end
         format.json { render :show, status: :ok, location: @shopping_cart }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -49,23 +56,26 @@ class ShoppingCartsController < ApplicationController
 
   # DELETE /shopping_carts/1 or /shopping_carts/1.json
   def destroy
-    @shopping_cart.destroy if @shopping_cart.id === session[:ShoppingCart_id]
+    @shopping_cart.destroy if @shopping_cart.id eql? session[:ShoppingCart_id]
     session[:ShoppingCart_id] = nil
 
     respond_to do |format|
-      format.html { redirect_to shopping_carts_url, notice: "Shopping cart was successfully destroyed." }
+      format.html do
+        redirect_to shopping_carts_url, notice: "Shopping cart was successfully destroyed."
+      end
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_shopping_cart
-      @shopping_cart = ShoppingCart.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def shopping_cart_params
-      params.fetch(:shopping_cart, {})
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_shopping_cart
+    @shopping_cart = ShoppingCart.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def shopping_cart_params
+    params.fetch(:shopping_cart, {})
+  end
 end

@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
+# controller for cart line items containing its methods
 class CartLineItemsController < ApplicationController
   include CurrentCart
-  before_action :set_cart_line_item, only: %i[ show edit update destroy ]
+  before_action :set_cart_line_item, only: %i[show edit update destroy]
   before_action :set_cart, only: [:create]
 
   # GET /cart_line_items or /cart_line_items.json
@@ -9,8 +12,7 @@ class CartLineItemsController < ApplicationController
   end
 
   # GET /cart_line_items/1 or /cart_line_items/1.json
-  def show
-  end
+  def show; end
 
   # GET /cart_line_items/new
   def new
@@ -18,8 +20,7 @@ class CartLineItemsController < ApplicationController
   end
 
   # GET /cart_line_items/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /cart_line_items or /cart_line_items.json
   def create
@@ -28,7 +29,9 @@ class CartLineItemsController < ApplicationController
 
     respond_to do |format|
       if @cart_line_item.save
-        format.html { redirect_to @cart_line_item.shopping_cart, notice: "Product was added to cart." }
+        format.html do
+          redirect_to @cart_line_item.shopping_cart, notice: "Product was added to cart."
+        end
         format.json { render :show, status: :created, location: @cart_line_item }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -41,7 +44,10 @@ class CartLineItemsController < ApplicationController
   def update
     respond_to do |format|
       if @cart_line_item.update(cart_line_item_params)
-        format.html { redirect_to cart_line_item_url(@cart_line_item), notice: "Cart line item was successfully updated." }
+        format.html do
+          redirect_to cart_line_item_url(@cart_line_item),
+                      notice: "Cart line item was successfully updated."
+        end
         format.json { render :show, status: :ok, location: @cart_line_item }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -56,19 +62,23 @@ class CartLineItemsController < ApplicationController
     @cart_line_item.destroy
 
     respond_to do |format|
-      format.html { redirect_to shopping_cart_path(@shopping_cart), notice: "Cart line item was successfully destroyed." }
+      format.html do
+        redirect_to shopping_cart_path(@shopping_cart),
+                    notice: "Cart line item was successfully destroyed."
+      end
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_cart_line_item
-      @cart_line_item = CartLineItem.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def cart_line_item_params
-      params.require(:cart_line_item).permit(:product_id, :ShoppingCart_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_cart_line_item
+    @cart_line_item = CartLineItem.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def cart_line_item_params
+    params.require(:cart_line_item).permit(:product_id, :ShoppingCart_id)
+  end
 end

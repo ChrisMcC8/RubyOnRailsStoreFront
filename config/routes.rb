@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   resources :cart_line_items
   resources :shopping_carts
@@ -12,29 +14,27 @@ Rails.application.routes.draw do
     get '/users/sign_out' => 'devise/sessions#destroy'
   end
   get 'contact/index'
-  get '/about', to: "about#index"
+  get '/about/index'
   get 'home/index'
   get '/about/edit'
   get 'product/index'
   get 'categories/index'
   get '/categories/:id', to: 'categories#show', as: 'category'
 
-  get 'carts/:id' => "carts#show", as: "cart"
-  delete 'carts/:id' => "carts#destroy"
+  get 'carts/:id' => 'carts#show', as: 'cart'
+  delete 'carts/:id' => 'carts#destroy'
 
   post 'products/add_to_cart/:id', to: 'products#add_to_cart', as: 'add_to_cart'
   delete 'products/remove_from_cart/:id', to: 'products#remove_from_cart', as: 'remove_from_cart'
 
-
   resources :products, :home, :about, :contact, :dashboard, :categories, :orders, :carts
-  root "home#index"
+  root 'home#index'
 
   # button_to "Add to cart", line_items_path(:product_id => product.id)
 
   # link_to "Add (+1)", line_item_add_path(:id => line_item), method: :post
   # link_to "Reduce (-1)", line_item_reduce_path(:id => line_item), method: :post
   # link_to "Remove item", line_item_path(line_item), method: :delete
-
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
